@@ -1,88 +1,60 @@
 # Strategic Segmentation of Top 100 US Independent Restaurants via K-Means
 
 ## Executive Summary
-This project performs an unsupervised customer/market segmentation analysis on the top 100 highest-grossing independent restaurants in the United States. Using **K-Means Clustering**, the analysis groups restaurants based on key operational and financial metrics—namely **Annual Sales**, **Average Check Amount**, and **Total Meals Served**. 
+This project performs an unsupervised customer and business segmentation analysis on the top 100 highest-grossing independent restaurants in the United States. Using **K-Means Clustering**, restaurants are categorized based on two vital revenue drivers: **Average Check Size ($)** and **Total Annual Sales ($)**.
 
-The primary goal is to uncover distinct business models within the independent restaurant industry, providing actionable strategic insights for investors, managers, and market analysts.
+The analysis provides actionable insights for restaurant investors and market analysts into how different pricing strategies and revenue levels structure the elite dining market.
 
 ---
 
 ## Tech Stack & Libraries
-
 * **Environment**: Jupyter Notebook (`ipykernel`)
 * **Language**: Python 3.x
-* **Data Manipulation**: `pandas`, `numpy`
-* **Machine Learning**: `scikit-learn` (`KMeans`, `StandardScaler`)
-* **Visualization**: `matplotlib`, `seaborn`
+* **Data Manipulation**: `pandas`
+* **Machine Learning**: `scikit-learn` (`KMeans`)
+* **Visualization**: `matplotlib`
 
 ---
 
 ## Business Problem & Intuition
-In the restaurant industry, high revenue can be achieved through vastly different strategies:
-1. **High Volume, Low Check**: Massive guest capacity and fast table turnover at affordable prices.
-2. **High Check, Low Volume**: Exclusive fine dining or luxury nightlife experiences with high price tags per guest.
-3. **Balanced Mid-Market**: Steady foot traffic coupled with premium-casual pricing.
+Top-line revenue ranking (`Rank`) alone fails to reveal how independent restaurants operate. A restaurant generating $20M in sales could be doing so through massive customer turnover at $35 per head, or through an exclusive high-end concept at $150 per head. 
 
-Evaluating performance purely by top-line revenue ranks masks these fundamental differences. Clustering allows us to categorize restaurants by their core revenue drivers and unit economics rather than just total scale.
+By applying K-Means clustering on **Average Check** vs. **Sales**, we identify distinct business models and pricing tiers across the top 100 independent restaurants.
 
 ---
 
-## Dataset Overview
-The analysis utilizes the `Independence100.csv` dataset, which contains metrics for the top 100 independent US restaurants:
+## Methodology & Analysis Workflow
 
-* **Rank**: Top-line revenue ranking (1 to 100).
-* **Restaurant**: Name of the establishment.
-* **Sales ($)**: Total annual sales volume.
-* **Average Check ($)**: Average expenditure per guest.
-* **Meals Served**: Total annual guest count / meal covers.
-* **City & State**: Geographical location.
+1. **Feature Extraction**: Extracted `Average Check` ($x$) and `Sales` ($y$) to focus on unit pricing versus total gross revenue.
+2. **Initial Exploration ($K=3$)**: Fitted a baseline K-Means model with 3 clusters to observe data distribution and initial centroids.
+3. **Hyperparameter Tuning (Elbow Method)**: Evaluated Sum of Squared Errors (SSE / Inertia) across $K \in [2, 10]$. Identified a clear elbow point at **$K=4$**, which significantly reduced inertia before reaching diminishing returns.
+4. **Final Model Execution ($K=4$)**: Re-trained the K-Means algorithm with 4 clusters and visualized final cluster boundaries and centroids.
 
 ---
 
-## Methodology & Pipeline
+## Cluster Profiles & Business Personas ($K=4$)
 
-### 1. Feature Engineering & Preprocessing
-* **Feature Selection**: Selected core numerical features (`Sales`, `Average Check`, `Meals Served`).
-* **Feature Scaling**: Applied `StandardScaler` to standardize features to a mean of 0 and variance of 1, ensuring equal weight across scale-sensitive features during distance calculations.
+### 👑 Cluster 1: Mega-Volume Outliers (Top Tier)
+* **Average Check**: ~$40–$45 | **Annual Sales**: ~$35M+
+* **Key Concept**: Iconic, massive-capacity venues (e.g., *Carmine's Times Square*, *The Boathouse Orlando*) relying on massive guest throughput and high table turnover.
 
-### 2. K-Means Clustering & Model Evaluation
-* **Elbow Method (Inertia)**: Plotted Sum of Squared Errors (SSE) across various $K$ values to find the optimal point of diminishing returns.
-* **Silhouette Analysis**: Evaluated cluster cohesion and separation quality to validate the chosen $K$.
+### 🌟 Cluster 2: High-Grossing Premium Venues
+* **Average Check**: ~$85–$90 | **Annual Sales**: ~$22M–$28M
+* **Key Concept**: Premium dining and nightlife flagships with strong pricing power and high guest volume.
 
----
+### ⚖️ Cluster 3: Steady High-Performers
+* **Average Check**: ~$75–$80 | **Annual Sales**: ~$17M–$20M
+* **Key Concept**: Upper-middle tier casual and fine dining restaurants maintaining steady, profitable demand.
 
-## Key Clusters & Business Personas
-
-*(Note: Update the values and descriptions below based on your specific notebook outputs/centroids)*
-
-### 🏆 Cluster 0: Mass-Market Volume Giants
-* **Characteristics**: Low to moderate average check ($30 - $45), extremely high meals served (>500k/year).
-* **Primary Driver**: High capacity, high table turnover, iconic tourist locations.
-* **Strategic Focus**: Maximizing throughput, labor efficiency, and floor operations.
-
-### 💎 Cluster 1: Luxury Fine Dining & Nightlife
-* **Characteristics**: Extremely high average check ($90 - $190+), lower volume (<200k/year).
-* **Primary Driver**: Premium pricing, upscale atmosphere, high-margin beverages and experience.
-* **Strategic Focus**: Guest retention, brand exclusivity, premium experience enhancement.
-
-### ⚖️ Cluster 2: Balanced Urban Flagships
-* **Characteristics**: Mid-to-high average check ($50 - $85), moderate to high guest volume.
-* **Primary Driver**: Steady urban demand, premium-casual dining experience.
-* **Strategic Focus**: Upselling menu items, optimizing off-peak booking times.
-
----
-
-## Strategic Actionable Insights
-* **For Investors**: Benchmark new independent ventures against these clusters to set realistic operational targets (e.g., target check size vs. necessary table turnover).
-* **For Operators**: Identify whether a restaurant is underperforming relative to its cluster peer group (e.g., a luxury venue with below-average check size).
+### 🏢 Cluster 4: Core Market Challengers
+* **Average Check**: ~$50–$60 | **Annual Sales**: ~$11M–$15M
+* **Key Concept**: Entry-level top-100 performers leveraging consistent neighborhood/urban foot traffic.
 
 ---
 
 ## Project Structure
 ```text
 us_independent_restaurants_kmeans/
-├── README.md               # Project documentation
-├── data/
-│   └── Independence100.csv # Dataset
-└── notebooks/
-    └── restaurant_kmeans.ipynb # Interactive Jupyter Notebook
+├── README.md                 # Project documentation
+├── Independence100.csv       # Dataset
+└── restaurant_kmeans.ipynb   # Interactive Jupyter Notebook
