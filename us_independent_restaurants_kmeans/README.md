@@ -7,6 +7,16 @@ The primary goal is to uncover distinct business models within the independent r
 
 ---
 
+## Tech Stack & Libraries
+
+* **Environment**: Jupyter Notebook (`ipykernel`)
+* **Language**: Python 3.x
+* **Data Manipulation**: `pandas`, `numpy`
+* **Machine Learning**: `scikit-learn` (`KMeans`, `StandardScaler`)
+* **Visualization**: `matplotlib`, `seaborn`
+
+---
+
 ## Business Problem & Intuition
 In the restaurant industry, high revenue can be achieved through vastly different strategies:
 1. **High Volume, Low Check**: Massive guest capacity and fast table turnover at affordable prices.
