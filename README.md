@@ -12,8 +12,6 @@ Welcome to my Market & Customer Segmentation Portfolio! This repository showcase
 * **Objective**: Segment the highest-grossing independent US restaurants based on revenue, average check size, and guest volume to identify distinct operational business models.
 * **Tech Stack**: Python, `scikit-learn`, `pandas`
 
-*(More segmentation projects using Hierarchical Clustering and DBSCAN coming soon...)*
-
 ---
 
 ## 🛠️ Core Competencies Demonstrated
